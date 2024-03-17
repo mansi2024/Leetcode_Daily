@@ -1,0 +1,46 @@
+class Solution {
+public:
+    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
+        vector<vector<int>>res;
+        int i=0;
+        int n=intervals.size();
+        while(i<n && intervals[i][1]<newInterval[0]){
+            res.push_back(intervals[i]);
+            i++;
+        }
+
+        while(i<n && intervals[i][0]<=newInterval[1]){
+            newInterval[0] = min(intervals[i][0],newInterval[0]);
+            newInterval[1] = max(intervals[i][1],newInterval[1]);
+            i++;
+        }
+        res.push_back(newInterval);
+
+        while(i<n){
+            res.push_back(intervals[i]);
+            i++;
+        }
+        return res;
+    }
+    // Sorting Way
+    // vector<vector<int>>ans;
+        // intervals.push_back(newInterval);
+        // sort(intervals.begin(),intervals.end());
+        // int s=intervals.size();
+        // int start = intervals[0][0];
+        // int end = intervals[0][1];
+        // for(int i=1;i<s;i++){
+        //     int newst = intervals[i][0];
+        //     int newend = intervals[i][1];
+
+        //     if(newst>end){
+        //         ans.push_back({start,end});
+        //         start=newst;
+        //         end=newend;
+        //     }else{
+        //         end = max(end,newend);
+        //     }
+        // }
+        // ans.push_back({start,end});
+        // return ans;
+};
